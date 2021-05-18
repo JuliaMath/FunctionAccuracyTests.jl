@@ -68,6 +68,7 @@ countulp(x::T, y::T) where {T <: AbstractFloat} = countulp(T, x, y)
 strip_module_name(f::Function) = last(split(string(f), '.')) # strip module name from function f
 
 function test_acc(fun_table::Dict, xx; tol=1.5, debug = true, tol_debug = 5)
+    T = eltype(xx)
     @testset "accuracy $(strip_module_name(xfun))" for (xfun, fun) in fun_table
         rmax = 0.0
         rmean = 0.0
