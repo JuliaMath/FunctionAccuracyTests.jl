@@ -67,7 +67,7 @@ end
 countulp(x::T, y::T) where {T <: AbstractFloat} = countulp(T, x, y)
 strip_module_name(f::Function) = last(split(string(f), '.')) # strip module name from function f
 
-function test_acc(fun_table, xx, tol; debug = true, tol_debug = 5)
+function test_acc(fun_table::Dict, xx; tol=1.5, debug = true, tol_debug = 5)
     @testset "accuracy $(strip_module_name(xfun))" for (xfun, fun) in fun_table
         rmax = 0.0
         rmean = 0.0
@@ -95,5 +95,6 @@ function test_acc(fun_table, xx, tol; debug = true, tol_debug = 5)
         t = @test rmax <= tol
     end
 end
-test_acc(fun_table, xx, tol; debug = true, tol_debug = 5) = test_acc(eltype(xx), fun_table, xx, 1.5; debug = true, tol_debug = 5)
-test_acc(fun_table, xx; debug = true, tol_debug = 5) = test_acc(fun_table, xx, 1.5; debug = true, tol_debug = 5) 
+test_acc(fun_table::Dict, xx; tol = 1.5, debug = true, tol_debug = 5) = test_acc(eltype(xx), fun_table, xx; tol = 1.5 debug = true, tol_debug = 5)
+test_acc(f::Function, xx; tol = 1.5 debug = true, tol_debug = 5) = test_acc(Dict(f=>f), xx; tol = 1.5 debug = true, tol_debug = 5)
+test_acc(f::Function, min, max; tol = 1.5 debug = true, tol_debug = 5) = test_acc(Dict(f=>f), FloatIterator(min,max); tol = 1.5 debug = true, tol_debug = 5)
