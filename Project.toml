@@ -1,0 +1,20 @@
+name = "FunctionAccuracyTests"
+uuid = "c7c8a6d5-64ef-4165-b05f-11d5e183af77"
+authors = ["Oscar Smith <oscardssmith@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[compat]
+Printf = "1"
+Test = "1"
+julia = "1"
+
+[extras]
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Printf", "Test"]

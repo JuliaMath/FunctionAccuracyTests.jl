@@ -1,5 +1,9 @@
+module FunctionAccuracyTests
+
 using Base.Math: significand_bits, exponent_bias
 using Test, Printf
+
+export FloatIterator, test_acc
 
 struct FloatIterator{T}<:AbstractVector{T}
     min::T
@@ -7,6 +11,7 @@ struct FloatIterator{T}<:AbstractVector{T}
     FloatIterator{T}(min, max) where T = min > max ? error("max less than min") : new{T}(min,max)
 end
 
+FloatIterator(min::T,max::T) where T = FloatIterator{T}(min,max)
 FloatIterator{T}() where T = FloatIterator{T}(T(-Inf),T(Inf))
 Base.iterate(it::FloatIterator) = (it.min, nextfloat(it.min))
 function Base.iterate(it::FloatIterator{T}, el) where T
@@ -96,6 +101,8 @@ function test_acc(fun_table::Dict, xx; tol=1.5, debug = true, tol_debug = 5)
         t = @test rmax <= tol
     end
 end
-test_acc(fun_table::Dict, xx; tol = 1.5, debug = true, tol_debug = 5) = test_acc(eltype(xx), fun_table, xx; tol = 1.5 debug = true, tol_debug = 5)
-test_acc(f::Function, xx; tol = 1.5 debug = true, tol_debug = 5) = test_acc(Dict(f=>f), xx; tol = 1.5 debug = true, tol_debug = 5)
-test_acc(f::Function, min, max; tol = 1.5 debug = true, tol_debug = 5) = test_acc(Dict(f=>f), FloatIterator(min,max); tol = 1.5 debug = true, tol_debug = 5)
+
+test_acc(f::Function, xx; tol = 1.5, debug = true, tol_debug = 5) = test_acc(Dict(f=>f), xx; tol = 1.5, debug = true, tol_debug = 5)
+test_acc(f::Function, min, max; tol = 1.5, debug = true, tol_debug = 5) = test_acc(Dict(f=>f), FloatIterator(min,max); tol = 1.5, debug = true, tol_debug = 5)
+
+end # module
