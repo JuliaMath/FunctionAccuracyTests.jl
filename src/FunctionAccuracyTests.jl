@@ -102,7 +102,7 @@ function test_acc(fun_table::Dict, xx; tol=1.5, debug = true, tol_debug = 5)
     end
 end
 
-test_acc(f::Function, xx; tol = 1.5, debug = true, tol_debug = 5) = test_acc(Dict(f=>f), xx; tol = 1.5, debug = true, tol_debug = 5)
-test_acc(f::Function, min, max; tol = 1.5, debug = true, tol_debug = 5) = test_acc(Dict(f=>f), FloatIterator(min,max); tol = 1.5, debug = true, tol_debug = 5)
-
+test_acc(f::Function, xx; tol = 1.5, debug = true, tol_debug = 5) = test_acc(Dict(f=>f), xx; tol = tol, debug = debug, tol_debug = tol_debug)
+test_acc(f::Function, min, max; tol = 1.5, debug = true, tol_debug = 5) = test_acc(Dict(f=>f), FloatIterator(min,max); tol = tol, debug = debug, tol_debug = tol_debug)
+test_acc(f::Function, T::Type; tol = 1.5, debug = true, tol_debug = 5) = test_acc(Dict(f=>f), FloatIterator(typemin(T),typemax(T); tol = tol, debug = debug, tol_debug = tol_debug))
 end # module
