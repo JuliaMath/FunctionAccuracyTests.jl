@@ -9,9 +9,9 @@ Construct an indexable iterator over all floating point values between min and m
 
 
 `test_acc` - Function
-* `test_acc(Dict(old_fun=>new_fun), xs; tol=1.5)`
+* `test_acc(Dict(test_fun=>reference_fun), xs; tol=1.5)`
 
-This tests whether `old_fun` and `new_fun` produce the same result on an iterator of `x` values. `tol` is the tolerance specified in ULPs (Units in Last Place).
+This tests whether `test_fun` and `reference_fun` produce the same result on an iterator of `x` values. `tol` is the tolerance specified in ULPs (Units in Last Place). The `reference_fun` should be the accurate "reference" function you're comparing your new "test" function with.
 * `test_acc(f::Function, xx; tol = 1.5)`
 
 This is the same, except it tests the `BigFloat` method of a function against the method for `eltype(xx)`.
