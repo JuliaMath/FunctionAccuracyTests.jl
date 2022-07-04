@@ -1,4 +1,4 @@
-# SpecialFunctionAccuracyTests.jl
+# FunctionAccuracyTests.jl
 ULP testing for Floating Point special functions.
 
 This package provides 2 useful things for testing the accuracy of functions. A `FloatIterator` type, and a function `test_acc`.
